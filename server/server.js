@@ -4,6 +4,14 @@ const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const userRoutes = require("./routes/userRoutes");
 const helperRoutes = require("./routes/helperRoutes");
+const notificationRoutes = require("./routes/notificationRoutes");
+const paymentRoutes = require("./routes/paymentRoutes");
+const transactionRoutes = require("./routes/transactionRoutes");
+
+// payment gateway
+const {cashfree, Cashfree} = require("cashfree-pg")
+
+
 
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
@@ -25,15 +33,21 @@ app.use(express.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 
-
-// Routes
-app.get("/", (req, res) => {
-  res.send("Home Page for Hire Me");
-});
-
 // userRoutes with path prefix
 app.use(userRoutes);
 app.use(helperRoutes);
+app.use(notificationRoutes);
+app.use(paymentRoutes);
+app.use(transactionRoutes);
+
+
+
+// CashFree Payment Integration 
+// SETTING UP CASHFREE GATEWAY
+Cashfree.XClientId = process.env.CLIENT_ID;
+Cashfree.XClientSecret= process.env.CLIENT_SECRET;
+Cashfree.XEnvironment = Cashfree.Environment.SANDBOX;     // sandBox => Testing
+
 
 
 // Connect to DB and start server

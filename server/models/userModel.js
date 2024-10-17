@@ -31,6 +31,10 @@ const userSchema = new Schema({
     enum: ['hirer', 'helper'],
     default: 'helper',
   },
+  phone: {
+    type: String,
+    unique: true,
+  },
   bio: {
     type: String, // Optional short description of the user
     default: 'Tell me about your self'
