@@ -18,20 +18,20 @@ There will be various helpers to hire. A user can choose any based on their skil
 
 
 ## Env file setup 
-PORT (i used 8080)
-MONGO_URI
+1) PORT (i used 8080)
+2) MONGO_URI
 
-NODE_ENV (development)
-JWT_SECRET
+3) NODE_ENV (development)
+4) JWT_SECRET
 
-// Nodemailer setup
-EMAIL_HOST (smtp.gmail.com generally)
-EMAIL_USER (email to send the mails from)
-EMAIL_PASS (email pass)
-GOOGLE_CLIENT_ID (need to create one for nodemailer)
+5) // Nodemailer setup
+   a) EMAIL_HOST (smtp.gmail.com generally)
+   b) EMAIL_USER (email to send the mails from)
+   c) EMAIL_PASS (email pass)
+   d) GOOGLE_CLIENT_ID (need to create one for nodemailer)
 
-FRONTEND_URL
+6) FRONTEND_URL
 
-// cashfree credentials 
-CLIENT_ID 
-CLIENT_SECRET 
+7) // cashfree credentials 
+   a) CLIENT_ID 
+   b) CLIENT_SECRET 
