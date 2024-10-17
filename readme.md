@@ -28,10 +28,11 @@ There will be various helpers to hire. A user can choose any based on their skil
    1) EMAIL_HOST (smtp.gmail.com generally)
    2) EMAIL_USER (email to send the mails from)
    3) EMAIL_PASS (email pass)
-   4) GOOGLE_CLIENT_ID (need to create one for nodemailer)
 
-6) FRONTEND_URL
+6) GOOGLE_CLIENT_ID (need to create one for google recaptcha or google auth login/signup)
 
-7) // cashfree credentials 
+7) FRONTEND_URL
+
+8) // cashfree credentials 
    1) CLIENT_ID 
    2) CLIENT_SECRET 
