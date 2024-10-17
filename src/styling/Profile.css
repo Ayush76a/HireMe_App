@@ -1,0 +1,23 @@
+.profile-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 2rem;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .profile-details p {
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+  }
+  
+  .profile-details strong {
+    font-weight: bold;
+  }
+  
+  .error-message {
+    color: red;
+    font-size: 1.2rem;
+  }
+  

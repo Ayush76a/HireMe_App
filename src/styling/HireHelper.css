@@ -1,0 +1,83 @@
+/* Container for the entire hire helper section */
+.hire-helper-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    background-color: #f4f4f4;
+    min-height: 100vh;
+  }
+  
+  /* Section title */
+  .hire-helper-container h1 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    color: #333;
+    text-align: center;
+  }
+  
+  /* Container for all helper cards */
+  .helper-cards-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+  }
+  
+  /* Individual helper card */
+  .helper-card {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    width: 300px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  /* Hover effect for the cards */
+  .helper-card:hover {
+    transform: translateY(-10px);
+  }
+  
+  /* Helper name styling */
+  .helper-card h3 {
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+    color: #333;
+  }
+  
+  /* Text styling inside the helper cards */
+  .helper-card p {
+    font-size: 1rem;
+    margin: 5px 0;
+    color: #555;
+  }
+  
+  /* Contact button styling */
+  .contact-btn {
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    font-size: 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .contact-btn:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Error message styling */
+  .error-message {
+    color: red;
+    font-size: 1.2rem;
+    text-align: center;
+  }
+  

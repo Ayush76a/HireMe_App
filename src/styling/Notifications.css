@@ -1,0 +1,39 @@
+.notifications-container {
+    padding: 20px; /* Adds space around the notifications */
+  }
+  
+  .notification-item {
+    border: 1px solid #ccc; /* Light gray border */
+    border-radius: 5px; /* Rounded corners */
+    padding: 15px; /* Space inside each notification */
+    margin-bottom: 15px; /* Space between notifications */
+    background-color: #f9f9f9; /* Light background color */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow effect */
+    text-align: left;
+  }
+  
+  .notification-item h3 {
+    margin: 0; 
+  }
+
+  button{
+    margin:12px 0px 0px 0px;
+    border: 1px solid #e0d5d5; /* Light gray border */
+    border-radius: 5px; /* Rounded corners */
+    color: rgb(234, 240, 242);
+    font-weight: 750;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow effect */
+    background-color: rgb(19, 7, 104);
+
+    height:2.2rem;
+  }
+  button:hover{
+    background-color: rgb(21, 4, 144) ;
+    box-shadow: 0 21px 15px rgba(0, 0, 0, 0.1); /* Subtle shadow effect */
+    border-color: rgb(27, 243, 157);
+  }
+  
+  .notification-item p {
+    margin: 5px 0; /* Add margin to paragraphs for spacing */
+  }
+  
