@@ -1,5 +1,5 @@
 ## Hello 👋, This Web app is called "Hire Me".
-## A platform to hire helpers to get your day to day work get done.
+## A platform to hire helpers to get your day to day work get done. (MERN Stack)
 Note: All the frontend was build using chatgpt and other internet tools and the backened by myself. This is just a learning project of implementing some new features.
 
 ## Basic idea of functioning of this app:
