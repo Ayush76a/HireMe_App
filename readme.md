@@ -25,13 +25,13 @@ There will be various helpers to hire. A user can choose any based on their skil
 4) JWT_SECRET
 
 5) // Nodemailer setup
-   a) EMAIL_HOST (smtp.gmail.com generally)
-   b) EMAIL_USER (email to send the mails from)
-   c) EMAIL_PASS (email pass)
-   d) GOOGLE_CLIENT_ID (need to create one for nodemailer)
+   1) EMAIL_HOST (smtp.gmail.com generally)
+   2) EMAIL_USER (email to send the mails from)
+   3) EMAIL_PASS (email pass)
+   4) GOOGLE_CLIENT_ID (need to create one for nodemailer)
 
 6) FRONTEND_URL
 
 7) // cashfree credentials 
-   a) CLIENT_ID 
-   b) CLIENT_SECRET 
+   1) CLIENT_ID 
+   2) CLIENT_SECRET 
