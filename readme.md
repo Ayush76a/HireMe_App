@@ -17,3 +17,21 @@ There will be various helpers to hire. A user can choose any based on their skil
 9) Photo upload with Multer or Cloudinary.
 
 
+## Env file setup 
+PORT (i used 8080)
+MONGO_URI
+
+NODE_ENV (development)
+JWT_SECRET
+
+// Nodemailer setup
+EMAIL_HOST (smtp.gmail.com generally)
+EMAIL_USER (email to send the mails from)
+EMAIL_PASS (email pass)
+GOOGLE_CLIENT_ID (need to create one for nodemailer)
+
+FRONTEND_URL
+
+// cashfree credentials 
+CLIENT_ID 
+CLIENT_SECRET 
