@@ -9,8 +9,8 @@ There will be various helpers to hire. A user can choose any based on their skil
 1) Google recaptcha for overcoming Bot interferences.  ✅
 2) Google Login, Signup using google auth. 
 3) Payment integration using Cashfree SDk.  ✅
-4) Pdf generation of the transaction.  ✅
-5) Autherization middle(protect) for controlling user access to data and resources.  ✅
+4) Pdf generation of the previous transaction.  ✅
+5) Autherization middleware(protect) for controlling user access to data and resources.  ✅
 6) Reset Password and Change Password functionality.  
 7) Profile Updation functionality. 
 8) Sending Email using Nodemailer.   ✅
