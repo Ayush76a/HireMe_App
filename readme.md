@@ -29,7 +29,7 @@ There will be various helpers to hire. A user can choose any based on their skil
    2) EMAIL_USER (email to send the mails from)
    3) EMAIL_PASS (email pass)
 
-6) GOOGLE_CLIENT_ID (need to create one for google recaptcha or google auth login/signup)
+6) GOOGLE_CLIENT_ID (needed to implement google login/signup)
 
 7) FRONTEND_URL
 
