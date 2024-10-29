@@ -1,27 +1,36 @@
 import React from 'react';
 import { GoogleLogin } from '@react-oauth/google';
 import { useNavigate } from 'react-router-dom';
-import {jwtDecode} from "jwt-decode";
 
 const Oauth = () => {
   const navigate = useNavigate();
 
-  const handleGoogleSignup = async (googleData) => {
+  const handleGoogleSubmit = async (googleData) => {
     try {
       const response = await fetch('http://localhost:8080/google-signup', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${googleData.credential}`, // Add Authorization header
-
-        },
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
         body: JSON.stringify({ token: googleData.credential }),
       });
 
       if (response.ok) {
-        navigate('/dashboard'); // Redirect to dashboard
+        // Wait for backend processing to complete
+        const data = await response.json();
+        (console.log('Cookies:', document.cookie))
+        localStorage.setItem('userName', data.name);
+        console.log('Google signup success:', data);
+
+        if (data.token) {
+          console.log('Cookies:', document.cookie); // Optional: Log cookies for debugging
+          // Now navigate to the dashboard after ensuring cookies are set
+          navigate('/dashboard');
+        } else {
+          console.error('No cookies found after signup.');
+        }
       } else {
-        console.error('Google signup failed');
+        const errorResponse = await response.json();
+        console.error('Google signup failed:', errorResponse);
       }
     } catch (error) {
       console.error('Error during Google signup:', error);
@@ -30,13 +39,8 @@ const Oauth = () => {
 
   return (
     <GoogleLogin
-      onSuccess={credentialResponse => {
-        const decoded = jwtDecode(credentialResponse.credential);
-        handleGoogleSignup(credentialResponse); // Send to backend
-      }}
-      onError={() => {
-        console.log('Login Failed');
-      }}
+      onSuccess={credentialResponse => handleGoogleSubmit(credentialResponse)}
+      onError={() => console.log('Login Failed')}
     />
   );
 };

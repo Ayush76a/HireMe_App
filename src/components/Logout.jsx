@@ -1,28 +1,34 @@
-import React from 'react'
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-
+import axios from 'axios';
 
 const Logout = () => {
-
   const navigate = useNavigate();
 
+  const logoutHandler = async () => {
+    try {
+      const response = await axios.get('http://localhost:8080/logout', {
+        withCredentials: true,
+      });
 
-const logoutHandler = ()=>{
-    localStorage.removeItem('userName'); // Clear the user name
-    localStorage.removeItem('userEmail'); // Clear email if stored
-    localStorage.removeItem('token'); // Clear email if stored
-    
-    navigate('/'); // Redirect to login page
-}
+      if(response)
+      navigate('/');
+    }
+     catch (err) {
+      console.error('Logout failed:', err);
+    } 
+  };
 
-return (
+  return (
     <div>
-        <h2>Logout</h2>
+      <h2>Logout</h2>
 
-        <p>click here for logout</p>
-        <h2><button onClick={logoutHandler}> Logout </button></h2>
+      <p>Click here to logout</p>
+      <button onClick={logoutHandler}>
+        Logout
+      </button>
     </div>
-  )
-}
+  );
+};
 
-export default Logout
+export default Logout;
