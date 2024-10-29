@@ -9,16 +9,14 @@ const {
   logout,
   googleRegister,
   getUser,
-  braintreePayment,
-  braintreeTokenController
 } = require("../controllers/userControllers");
 
 
 
 router.post("/register", registerUser);
 router.post("/login", loginUser);
-router.post("/google-register", googleRegister);
-router.get("/logout", protect, logout);
+router.post("/google-signup", googleRegister);
+router.get("/logout", logout);
 router.get("/getuser", protect, getUser);
 
 

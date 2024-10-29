@@ -3,14 +3,16 @@ const User = require("../models/userModel");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const crypto = require("crypto");
-var braintree = require("braintree");
+const { OAuth2Client } = require('google-auth-library');
+const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
+const Cookies = require('universal-cookie');
 
+const cookies = new Cookies();
 
 // Generate Token
 const generateToken = (email) => {
   return jwt.sign({ email }, process.env.JWT_SECRET, { expiresIn: "1d" });
 };
-
 
 
 
@@ -53,7 +55,7 @@ const registerUser = asyncHandler(async (req, res) => {
     httpOnly: true,
     expires: new Date(Date.now() + 1000 * 86400), // 1 day
     sameSite: "none",
-    secure: false,
+    secure: true,
   });
 
   if (user) {
@@ -73,57 +75,95 @@ const registerUser = asyncHandler(async (req, res) => {
 });
 
 
-// signup with google-auth
-const googleRegister =asyncHandler(async(req, res) => {
-  res.send("goggle register")
 
-  // console.log(req.body)
+// Signup with Google
+const googleRegister = async (req, res) => {
   const { token } = req.body;
 
-  if (!token) {
-    res.status(400);
-    throw new Error('Token not provided');
-  }
+  try {
+    // Verify Google token
+    const ticket = await client.verifyIdToken({
+      idToken: token,
+      audience: process.env.GOOGLE_CLIENT_ID,
+    });
+// The method ticket.getPayload() returns the decoded payload of the Google ID token,
+//  which contains important user information. This payload typically includes the user's:
+//  name, email, picture
+    const { name, email } = ticket.getPayload();
 
-  const ticket = await client.verifyIdToken({
-    idToken: token,
-    audience: process.env.GOOGLE_CLIENT_ID,
-  });
+    // Check if user already exists
+    let user = await User.findOne({ email });
+    
+    if (user) {
+      // If user already exists, check if they signed up via Google
+      if (!user.isGoogleUser) {
+        return res.status(400).json({ message: 'User already exists with a different signup method.' });
+      }
 
-  const payload = ticket.getPayload();
-  const { name, email } = payload;
+      // User exists and signed up via Google, proceed to login or update profile
+      const token = generateToken(email);
+      
+      // SET THE COOKIE
+      res.cookie("token", token, {
+        path: "/",
+        httpOnly: true,
+        expires: new Date(Date.now() + 1000 * 86400), // 1 day
+        sameSite: "none",
+        secure: true,
+      });
 
-  // Check if user email already exists
-  let user = await User.findOne({ email });
-
-  if (!user) {
-    // Create new user with Google data
-    user = await User.create({
+      return res.status(200).json({
+        _id: user._id,
+        name: user.name,
+        email: user.email,
+        token,
+      });
+    }
+    else{
+    // Create a new user with Google credentials
+    user = new User({
       name,
       email,
-      password: null, // No password needed for Google signup
+      isGoogleUser: true, // Mark this user as Google-based
+      // No password for Google users
+    });
+
+    // Generate JWT token for the new user
+    const newToken = generateToken(email)
+    
+    console.log("reacehd !!")
+    
+    // Save user to database
+    await user.save();
+    
+    // send cookie
+    res.cookie("token", newToken, {
+      path: "/",
+      httpOnly: true,
+      expires: new Date(Date.now() + 1000 * 86400), // 1 day
+      sameSite: "none",
+      secure: true,
+    });
+
+    console.log("reacehd !! bhefoge save")
+
+
+    console.log("token from backend :", newToken);
+
+    // Send response
+    res.status(201).json({
+      _id: user._id,
+      name: user.name,
+      email: user.email,
+      token: newToken,
     });
   }
+  } catch (error) {
+    console.error('Error during Google signup:', error);
+    res.status(400).json({ message: 'Invalid Google token or signup failed.' });
+  }
+};
 
-  // Generate JWT token for the user
-  const jwtToken = generateToken(user.email);
-
-
-  // Send HTTP-only cookie
-  res.cookie('token', jwtToken, {
-    path: '/',
-    httpOnly: true,
-    expires: new Date(Date.now() + 1000 * 86400), // 1 day
-    sameSite: 'none',
-    secure: false,
-  });
-
-  res.status(201).json({
-    name: user.name,
-    email: user.email,
-    token: jwtToken,
-  });
-})
 
 
 // Login User
@@ -155,12 +195,16 @@ const loginUser = asyncHandler(async (req, res) => {
   if(passwordIsCorrect){
 
    // Send HTTP-only cookie
-  res.cookie("token", token, {
+    // cookies.set("token", token, {
+    //   expires: new Date(Date.now() + 1000 * 3600)
+    // });
+    
+   res.cookie("token", token, {
     path: "/",
     httpOnly: true,
     expires: new Date(Date.now() + 1000 * 86400), // 1 day
     sameSite: "none",
-    secure: false,
+    secure: true,
   });
 }
   if (user && passwordIsCorrect) {
