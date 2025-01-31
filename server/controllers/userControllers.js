@@ -224,6 +224,47 @@ const loginUser = asyncHandler(async (req, res) => {
 });
 
 
+
+// ONE TAP LOGIN 
+const oneTapLogin = async (req, res) => {
+  const { id_token } = req.body; // Ensure you're destructuring 'id_token'
+
+  try {
+    // Verify the ID token
+    const ticket = await client.verifyIdToken({
+      idToken: id_token, // Use 'idToken' here
+      audience: process.env.GOOGLE_CLIENT_ID, // Your Google Client ID
+    });
+
+    const payload = ticket.getPayload();
+    const userId = payload['sub']; // Unique Google ID
+    const email = payload['email']; // User's email
+
+    // Check if the user already exists in your database
+    let user = await User.findOne({ googleId: userId });
+
+    if (!user) {
+      // If user does not exist, create a new user
+      user = new User({
+        googleId: userId,
+        email: email,
+        name: payload['name'], // User's name
+        picture: payload['picture'], // User's profile picture
+      });
+      await user.save();
+    }
+
+    // Generate a token for the user
+    const token = generateToken(user.email); // Ensure you have a function to generate a token
+    res.status(200).json({ token, user });
+  } catch (error) {
+    console.error('Error verifying Google ID token:', error);
+    res.status(401).json({ error: 'Invalid ID token' });
+  }
+};
+
+
+
 // Logout User
 const logout = asyncHandler(async (req, res) => {
   
@@ -396,4 +437,5 @@ module.exports = {
   logout,
   googleRegister,
   getUser,
+  oneTapLogin,
 };

@@ -9,6 +9,7 @@ const {
   logout,
   googleRegister,
   getUser,
+  oneTapLogin,
 } = require("../controllers/userControllers");
 
 
@@ -16,6 +17,7 @@ const {
 router.post("/register", registerUser);
 router.post("/login", loginUser);
 router.post("/google-signup", googleRegister);
+router.post("/google-login", oneTapLogin);
 router.get("/logout", logout);
 router.get("/getuser", protect, getUser);
 
